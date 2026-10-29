@@ -1,0 +1,28 @@
+CREATE DATABASE IF NOT EXISTS gamehub_db
+    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE gamehub_db;
+
+CREATE TABLE IF NOT EXISTS estudios (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    pais VARCHAR(60) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS jogos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+    ano_lancamento SMALLINT UNSIGNED NOT NULL,
+    estudio_id INT NOT NULL,
+    CONSTRAINT fk_jogos_estudios FOREIGN KEY (estudio_id)
+        REFERENCES estudios(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS jogadores (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    nickname VARCHAR(20) NOT NULL,
+    CONSTRAINT uk_jogadores_nickname UNIQUE (nickname)
+) ENGINE=INNODB;
+
+SELECT user, host, plugin FROM mysql.user;
