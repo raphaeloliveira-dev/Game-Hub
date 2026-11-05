@@ -1,5 +1,5 @@
-import * as estudioModel from "../models/estudioModel.js";
-import { textoValido } from "../utils/validacoes.js";
+import * as estudioModel from "../models-estudios/estudioModel-estudios.js";
+import { textoValido } from "../utils-estudios/validacoes-estudios.js";
 
 export function listar(req, res, next) {
     estudioModel.listar((erro, resultado) => {
@@ -8,8 +8,8 @@ export function listar(req, res, next) {
     });
 }
 
-export function buscarPorId(req, res, next) {
-    estudioModel.buscarPorId(req.id, (erro, resultado) => {
+export function get(req, res, next) {
+    estudioModel.get(req.id, (erro, resultado) => {
         if (erro) return next(erro);
         if (resultado.length === 0) {
             return res.status(404).json({ erro: "Estúdio não encontrado" });
@@ -18,14 +18,15 @@ export function buscarPorId(req, res, next) {
     });
 }
 
-export function criar(req, res, next) {
+export function post(req, res, next) {
     const { nome, pais } = req.body ?? {};
     if (!textoValido(nome, 100) || !textoValido(pais, 60)) {
         return res.status(400).json({ erro: "Informe nome (até 100 caracteres) e pais (até 60)" });
     }
+
     const dados = { nome: nome.trim(), pais: pais.trim() };
 
-    estudioModel.criar(dados, (erro, resultado) => {
+    estudioModel.post(dados, (erro, resultado) => {
         if (erro) return next(erro);
         return res.status(201).json({
             mensagem: "Estúdio cadastrado com sucesso",
@@ -34,27 +35,28 @@ export function criar(req, res, next) {
     });
 }
 
-export function atualizar(req, res, next) {
+export function put(req, res, next) {
     const { nome, pais } = req.body ?? {};
     if (!textoValido(nome, 100) || !textoValido(pais, 60)) {
         return res.status(400).json({ erro: "Informe nome (até 100 caracteres) e pais (até 60)" });
     }
+
     const dados = { nome: nome.trim(), pais: pais.trim() };
 
-    // Consulta didática para confirmar que o registro existe antes de editar.
-    estudioModel.buscarPorId(req.id, (erro, registros) => {
+    estudioModel.get(req.id, (erro, registros) => {
         if (erro) return next(erro);
         if (registros.length === 0) {
             return res.status(404).json({ erro: "Estúdio não encontrado" });
         }
-        estudioModel.atualizar(req.id, dados, (erro, resultado) => {
+
+        estudioModel.put(req.id, dados, (erro) => {
             if (erro) return next(erro);
             return res.status(200).json({ mensagem: "Estúdio atualizado com sucesso" });
         });
     });
 }
 
-export function excluir(req, res, next) {
+export function deletar(req, res, next) {
     estudioModel.deletar(req.id, (erro, resultado) => {
         if (erro) return next(erro);
         if (resultado.affectedRows === 0) {
