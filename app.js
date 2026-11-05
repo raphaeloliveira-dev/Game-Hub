@@ -8,10 +8,10 @@ import express from "express";
 import cors from "cors";
 import conexao from "./db.js";
 
-import { tratarErro } from "./src/src/middlewares/tratarErro.js";
-import estudioRoutes from "./src-estudios/routes-estudios/estudioRoute-estudios.js";
-import jogadoresRoutes from "./src-jogadores/routes-jogadores/estudioRoute-jogadores.js";
-import jogosRoutes from "./src-jogos/routes-jogos/estudioRoute-jogos.js";
+import { tratarErro } from "./src/middlewares/tratarErro.js";
+import estudioRoutes from "./src/estudios/routes-estudios/estudioRoute-estudios.js";
+import jogadoresRoutes from "./src/jogadores/routes-jogadores/estudioRoute-jogadores.js";
+import jogosRoutes from "./src/jogos/routes-jogos/estudioRoute-jogos.js";
 
 const app = express();
 const PORTA = Number(process.env.PORTA || 3000);

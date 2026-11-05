@@ -5,9 +5,9 @@ import { validarId } from "../middlewears-jogadores/validarId-jogadores.js";
 const router = Router();
 
 router.get("/", estudioController.listar);
-router.get("/:id", validarId, estudioController.buscarPorId);
-router.post("/", estudioController.criar);
-router.put("/:id", validarId, estudioController.atualizar);
-router.delete("/:id", validarId, estudioController.excluir);
+router.get("/:id", validarId, estudioController.get);
+router.post("/", estudioController.post);
+router.put("/:id", validarId, estudioController.put);
+router.delete("/:id", validarId, estudioController.deletar);
 
 export default router;
