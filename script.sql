@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS gamehub_db
-    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS gamehub_db;
 USE gamehub_db;
 
 CREATE TABLE IF NOT EXISTS estudios (
